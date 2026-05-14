@@ -147,6 +147,11 @@ struct NetworkControlsView: View {
         VStack(alignment: .leading, spacing: 12) {
             Toggle("Wi‑Fi", isOn: Binding(get: { viewModel.wifiOn }, set: { viewModel.toggleWiFi($0) }))
             Toggle("Bluetooth", isOn: Binding(get: { viewModel.bluetoothOn }, set: { viewModel.toggleBluetooth($0) }))
+            if !viewModel.bluetoothToggleMessage.isEmpty {
+                Text(viewModel.bluetoothToggleMessage)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
             Text("VPN: \(viewModel.vpnStatus)")
             Text("Network speed: ↓\(viewModel.systemStats.networkDownKBps, specifier: "%.0f") ↑\(viewModel.systemStats.networkUpKBps, specifier: "%.0f") KB/s")
             Spacer()

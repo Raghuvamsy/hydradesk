@@ -19,6 +19,7 @@ final class AppViewModel: ObservableObject {
     @Published var wifiOn = false
     @Published var bluetoothOn = false
     @Published var vpnStatus = "Unknown"
+    @Published var bluetoothToggleMessage = ""
 
     @Published var darkMode = false
     @Published var localFocusMode = false
@@ -108,7 +109,8 @@ final class AppViewModel: ObservableObject {
     }
 
     func toggleBluetooth(_ enabled: Bool) {
-        networkService.setBluetooth(enabled: enabled)
+        let changed = networkService.setBluetooth(enabled: enabled)
+        bluetoothToggleMessage = changed ? "" : "Bluetooth toggle isn't available via public macOS API."
         refreshNetwork()
     }
 

@@ -20,8 +20,12 @@ final class NetworkControlService {
         try? CWWiFiClient.shared().interface()?.setPower(enabled)
     }
 
-    func setBluetooth(enabled: Bool) {
+    @discardableResult
+    func setBluetooth(enabled: Bool) -> Bool {
         _ = enabled
+        // Public macOS APIs do not provide a reliable Bluetooth power toggle for third-party apps.
+        // We expose the intent and return false so callers can present clear UX fallback messaging.
+        return false
     }
 }
 #endif
